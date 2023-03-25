@@ -50,7 +50,7 @@ public class GameTest {
     @Test
     public void compareStrengthsPlayersIfBothAreUnregistered() {
         Assertions.assertThrows(NotRegisteredException.class, () -> {
-            game.round("Brandon", "John");
+            game.round("", "");
         });
     }
 
@@ -69,7 +69,7 @@ public class GameTest {
     @Test
     public void compareStrengthsPlayersNamesNotIncluded() {
         Assertions.assertThrows(NotRegisteredException.class, () -> {
-            game.round("", "");
+            game.round("John", "Brandon");
         });
     }
     @Test

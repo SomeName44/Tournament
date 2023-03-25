@@ -13,7 +13,6 @@ public class Game {
             throw new NotRegisteredException("A player with the same name already exists");
         }
     }
-
     public Player findByName(String name) {
 
         for (int i = 0; i < registeredPlayers.size(); i++) {
@@ -25,32 +24,29 @@ public class Game {
     }
 
     public int round(String playerName1, String playerName2) throws NotRegisteredException {
+        Player player1 = null;
+        Player player2 = null;
 
-        int result = 7;
-        Player first = findByName(playerName1);
-        Player second = findByName(playerName2);
-
-        if (first != null & second != null) {
-
-            for (int i = 0; i < registeredPlayers.size(); i++) {
-
-                if (first.getStrength() == second.getStrength()) {
-                    result = 0;
-                } else if (first.getStrength() > second.getStrength()) {
-                    result = 1;
-                } else {
-                    result = 2;
-                }
-
+        for (Player player : registeredPlayers) {
+            if (player.getName().equals(playerName1)) {
+                player1 = player;
             }
-        } else if (first == null & second == null) {
-            throw new NotRegisteredException("Players with name" + first + " and " + second + "not registered");
-
-        } else if (first == null) {
-            throw new NotRegisteredException("Player with name" + first + "not registered");
-        } else {
-            throw new NotRegisteredException("Player with name" + second + "not registered");
+            if (player.getName().equals(playerName2)) {
+                player2 = player;
+            }
         }
-        return result;
+        if (player1 == null) {
+            throw new NotRegisteredException(playerName1);
+        }
+        if (player2 == null) {
+            throw new NotRegisteredException(playerName2);
+        }
+        if (player1.getStrength() > player2.getStrength()) {
+            return 1;
+        }
+        if (player1.getStrength() < player2.getStrength()) {
+            return 2;
+        }
+        return 0;
     }
 }
